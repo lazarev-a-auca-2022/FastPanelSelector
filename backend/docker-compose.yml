@@ -4,6 +4,13 @@
 # file would need a `mongo` service added back plus network/depends_on
 # wiring — that part of the swap is a deployment-topology concern the
 # interface abstraction doesn't cover by itself.
+#
+# `build: .` uses ./Dockerfile, which copies in a binary cross-compiled
+# outside the container (run ./build.sh after any Go code change, then
+# `docker-compose build --no-cache server`). This is because compiling
+# modernc.org/sqlite's dependency modernc.org/libc needs more RAM than some
+# small VPS hosts have. On a host with plenty of RAM, build from source
+# instead: `docker-compose build --no-cache --file Dockerfile.source server`.
 services:
   server:
     build: .
