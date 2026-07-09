@@ -118,7 +118,7 @@ body {
 .slider-wrap {
   position: relative;
   height: 4px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .slider {
@@ -190,7 +190,14 @@ body {
   justify-content: space-between;
   font-size: 0.75rem;
   color: #666;
-  margin-top: 10px;
+  /* Adjacent-sibling margins collapse with .slider-wrap's margin-bottom
+     (the browser keeps only the larger one), so this value alone is what
+     actually determines the gap below the track — don't assume it adds to
+     the wrapper's margin. It needs to clear the thumb's ~9px overflow past
+     the track plus its glow (box-shadow halo) with real room to spare,
+     otherwise the tick directly under the thumb's resting position (e.g.
+     the 2nd of 6 ticks, right under a value of 2) is fully hidden behind it. */
+  margin-top: 28px;
 }
 
 /* ── Right panel ── */
