@@ -1,0 +1,26 @@
+# Single service: SQLite is embedded, so no separate database container is
+# needed. If storage is later swapped to MongoDB (Store is behind an
+# interface specifically to make that swap contained on the Go side), this
+# file would need a `mongo` service added back plus network/depends_on
+# wiring — that part of the swap is a deployment-topology concern the
+# interface abstraction doesn't cover by itself.
+services:
+  server:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - HTTP_PORT=8080
+      - DB_PATH=/data/plans.db
+      - FEED_PATH=/feed/cloud.xlsx
+      - POLL_INTERVAL=15m
+      - LOG_LEVEL=info
+    volumes:
+      - plans-db:/data
+      # Point this at wherever the externally-regenerated feed file lands
+      # on the host. Read-only: this service only ever consumes the file.
+      - ${FEED_HOST_DIR:-./data/feed}:/feed:ro
+    restart: unless-stopped
+
+volumes:
+  plans-db:

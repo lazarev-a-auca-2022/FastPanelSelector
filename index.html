@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Server Configuration</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <h1 class="title">Server configuration</h1>
+
+    <div class="configurator">
+      <!-- Left panel -->
+      <div class="left-panel">
+
+        <!-- Location tabs -->
+        <div class="tabs" id="location-tabs">
+          <button class="tab" data-location="DE">
+            <span class="flag">🇩🇪</span> Germany
+          </button>
+          <button class="tab" data-location="FI">
+            <span class="flag">🇫🇮</span> Finland
+          </button>
+          <button class="tab" data-location="US">
+            <span class="flag">🇺🇸</span> USA
+          </button>
+          <button class="tab" data-location="SG">
+            <span class="flag">🇸🇬</span> Singapore
+          </button>
+        </div>
+        <div class="location-city" id="location-city"></div>
+
+        <!-- Type tabs (rendered per location: availability varies) -->
+        <div class="section-label">Type</div>
+        <div class="tabs" id="type-tabs"></div>
+
+        <!-- Cores slider -->
+        <div class="slider-card" id="card-cores">
+          <div class="slider-label" id="cores-card-label">vCPU cores</div>
+          <div class="slider-wrap">
+            <input type="range" class="slider" id="slider-cores" min="0" max="0" step="1" value="0" />
+          </div>
+          <div class="slider-ticks" id="ticks-cores"></div>
+        </div>
+
+        <!-- ECC RAM slider -->
+        <div class="slider-card" id="card-ram">
+          <div class="slider-label">ECC RAM (GB)</div>
+          <div class="slider-wrap">
+            <input type="range" class="slider" id="slider-ram" min="0" max="0" step="1" value="0" />
+          </div>
+          <div class="slider-ticks" id="ticks-ram"></div>
+        </div>
+
+        <!-- NVMe Disk slider -->
+        <div class="slider-card" id="card-disk">
+          <div class="slider-label">NVMe disk (GB)</div>
+          <div class="slider-wrap">
+            <input type="range" class="slider" id="slider-disk" min="0" max="0" step="1" value="0" />
+          </div>
+          <div class="slider-ticks" id="ticks-disk"></div>
+        </div>
+
+      </div>
+
+      <!-- Right panel -->
+      <div class="right-panel">
+        <div class="server-visual">
+          <div class="cpu-badge">
+            <span class="cpu-badge-line">
+              <span id="badge-line1"></span><br>
+              <strong id="badge-line2"></strong>
+            </span>
+          </div>
+          <div class="server-img-wrap">
+            <div class="server-box">
+              <div class="server-core" id="server-core">
+                <span class="core-label" id="core-label">1</span>
+              </div>
+              <div class="server-ram-bars" id="ram-bars">
+                <div class="ram-bar"></div>
+                <div class="ram-bar"></div>
+                <div class="ram-bar"></div>
+                <div class="ram-bar"></div>
+                <div class="ram-bar"></div>
+                <div class="ram-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" id="empty-state" hidden>No plans currently available for this selection.</div>
+
+        <div class="order-bar">
+          <div class="price-display">
+            <span class="price-amount" id="price-display">–</span>
+            <span class="price-currency">€</span>
+            <span class="price-period">per month</span>
+          </div>
+          <button class="order-btn" id="order-btn">Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast">
+    <span>Link copied!</span>
+    <code id="toast-url"></code>
+  </div>
+
+  <script src="plans-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
