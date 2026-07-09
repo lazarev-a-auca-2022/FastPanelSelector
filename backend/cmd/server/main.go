@@ -61,6 +61,7 @@ func run() error {
 		ReadHeaderTimeout: 5 * time.Second,
 		WriteTimeout:      10 * time.Second,
 		IdleTimeout:       60 * time.Second,
+		StaticDir:         cfg.StaticDir,
 	}, handlers, log)
 
 	serveErr := make(chan error, 1)

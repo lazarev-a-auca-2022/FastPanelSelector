@@ -20,6 +20,10 @@ type Config struct {
 	PollInterval time.Duration
 	MaxFeedBytes int64
 	LogLevel     slog.Level
+	// StaticDir, if non-empty, is served at "/" alongside the API — the
+	// frontend selector's static files. Empty disables static serving
+	// entirely (API-only deployment).
+	StaticDir string
 }
 
 func Load() (Config, error) {
@@ -30,6 +34,7 @@ func Load() (Config, error) {
 		PollInterval: 15 * time.Minute,
 		MaxFeedBytes: 10 * 1024 * 1024,
 		LogLevel:     slog.LevelInfo,
+		StaticDir:    "",
 	}
 
 	if v, ok := os.LookupEnv("HTTP_PORT"); ok {
@@ -62,6 +67,10 @@ func Load() (Config, error) {
 			return Config{}, fmt.Errorf("config: invalid MAX_FEED_BYTES %q", v)
 		}
 		cfg.MaxFeedBytes = n
+	}
+
+	if v, ok := os.LookupEnv("STATIC_DIR"); ok && v != "" {
+		cfg.StaticDir = v
 	}
 
 	if v, ok := os.LookupEnv("LOG_LEVEL"); ok && v != "" {

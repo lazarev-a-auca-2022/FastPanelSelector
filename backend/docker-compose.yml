@@ -22,11 +22,18 @@ services:
       - FEED_PATH=/feed/cloud.xlsx
       - POLL_INTERVAL=15m
       - LOG_LEVEL=info
+      - STATIC_DIR=/www
     volumes:
       - plans-db:/data
       # Point this at wherever the externally-regenerated feed file lands
       # on the host. Read-only: this service only ever consumes the file.
       - ${FEED_HOST_DIR:-./data/feed}:/feed:ro
+      # The static frontend selector, mounted file-by-file (not the whole
+      # repo root) so nothing else in the repo — source, .env, the raw
+      # feed spreadsheet — is accidentally exposed over HTTP.
+      - ../index.html:/www/index.html:ro
+      - ../style.css:/www/style.css:ro
+      - ../app.js:/www/app.js:ro
     restart: unless-stopped
 
 volumes:

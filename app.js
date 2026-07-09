@@ -22,11 +22,13 @@ function typeDef(key) {
 }
 
 // ── Data loading ─────────────────────────────────────────────────────────────
-// Single seam: swap this for a real endpoint later without touching anything
-// else — every other function only ever consumes the resolved array.
+// Single seam: every other function only ever consumes the resolved array,
+// so this is the one place that knows where the catalog actually comes from.
 function loadPlans() {
-  // Future: return fetch('/api/plans').then(r => r.json());
-  return Promise.resolve(PLANS_DATA);
+  return fetch('/api/plans').then(r => {
+    if (!r.ok) throw new Error(`GET /api/plans: ${r.status}`);
+    return r.json();
+  });
 }
 
 // ── App state ────────────────────────────────────────────────────────────────
