@@ -424,35 +424,3 @@ body {
   padding: 10px 22px;
   text-align: center;
 }
-
-/* ── Toast ── */
-.toast {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: #1e1e1e;
-  border: 1px solid #444;
-  border-radius: 10px;
-  padding: 14px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.85rem;
-  color: #ccc;
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 999;
-  max-width: 90vw;
-  word-break: break-all;
-}
-
-.toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-.toast code {
-  color: #d4a017;
-  font-size: 0.75rem;
-}
